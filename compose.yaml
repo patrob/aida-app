@@ -1,0 +1,10 @@
+﻿services:
+  aida.api:
+    platform: "linux/arm64"
+    image: aida.api
+    build:
+      context: .
+      dockerfile: src/Aida.Api/Dockerfile
+    ports:
+      - "5015:8080"
+      - "7087:7087"

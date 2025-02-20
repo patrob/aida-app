@@ -1,0 +1,10 @@
+### Health endpoint should return 200 
+GET http://localhost:5015/health
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+%}
+
+###

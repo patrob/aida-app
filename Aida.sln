@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aida.Api", "src\Aida.Api\Aida.Api.csproj", "{A526698B-1C61-46C6-AFD7-C17EAF1776EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52B5C7CB-82AB-4D73-9432-ACAB2DD74C69}"
+	ProjectSection(SolutionItems) = preProject
+		compose.yaml = compose.yaml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9D9A31EE-9B20-4D48-AB01-2FC371AD5544}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{79EE3992-71EB-4026-A073-14F611A1A5F0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aida.Api.UnitTests", "src\Aida.Api.UnitTests\Aida.Api.UnitTests.csproj", "{53CBC6A3-5252-4160-BD15-3ABFB5BCC67C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aida.Api.IntegrationTests", "tests\Aida.Api.IntegrationTests\Aida.Api.IntegrationTests.csproj", "{7D08C4C3-F5C3-4EC8-94E3-CF71096C73C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aida.Api.Testing", "Aida.Api.Testing\Aida.Api.Testing.csproj", "{D298DC52-08F7-41C3-95E5-6218A874B28D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A526698B-1C61-46C6-AFD7-C17EAF1776EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A526698B-1C61-46C6-AFD7-C17EAF1776EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A526698B-1C61-46C6-AFD7-C17EAF1776EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A526698B-1C61-46C6-AFD7-C17EAF1776EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53CBC6A3-5252-4160-BD15-3ABFB5BCC67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53CBC6A3-5252-4160-BD15-3ABFB5BCC67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53CBC6A3-5252-4160-BD15-3ABFB5BCC67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53CBC6A3-5252-4160-BD15-3ABFB5BCC67C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D08C4C3-F5C3-4EC8-94E3-CF71096C73C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D08C4C3-F5C3-4EC8-94E3-CF71096C73C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D08C4C3-F5C3-4EC8-94E3-CF71096C73C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D08C4C3-F5C3-4EC8-94E3-CF71096C73C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D298DC52-08F7-41C3-95E5-6218A874B28D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D298DC52-08F7-41C3-95E5-6218A874B28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D298DC52-08F7-41C3-95E5-6218A874B28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D298DC52-08F7-41C3-95E5-6218A874B28D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A526698B-1C61-46C6-AFD7-C17EAF1776EF} = {9D9A31EE-9B20-4D48-AB01-2FC371AD5544}
+		{53CBC6A3-5252-4160-BD15-3ABFB5BCC67C} = {79EE3992-71EB-4026-A073-14F611A1A5F0}
+		{7D08C4C3-F5C3-4EC8-94E3-CF71096C73C3} = {79EE3992-71EB-4026-A073-14F611A1A5F0}
+		{D298DC52-08F7-41C3-95E5-6218A874B28D} = {79EE3992-71EB-4026-A073-14F611A1A5F0}
+	EndGlobalSection
+EndGlobal
