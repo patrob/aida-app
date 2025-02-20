@@ -12,4 +12,8 @@
         <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="7.2.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Aida.Core\Aida.Core.csproj" />
+    </ItemGroup>
+
 </Project>
