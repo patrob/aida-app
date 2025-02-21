@@ -1,0 +1,46 @@
+{
+  "name": "aida-app",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "prestart": "node aspnetcore-https",
+    "start": "run-script-os",
+    "start:windows": "ng serve --port 44417 --ssl --ssl-cert %APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem --ssl-key %APPDATA%\\ASP.NET\\https\\%npm_package_name%.key",
+    "start:default": "ng serve --port 44417 --ssl --ssl-cert $HOME/.aspnet/https/${npm_package_name}.pem --ssl-key $HOME/.aspnet/https/${npm_package_name}.key",
+    "build": "ng build",
+    "build:ssr": "ng run aida-app:server:dev",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/animations": "^19.1.7",
+    "@angular/common": "^19.1.7",
+    "@angular/compiler": "^19.1.7",
+    "@angular/core": "^19.1.7",
+    "@angular/forms": "^19.1.7",
+    "@angular/platform-browser": "^19.1.7",
+    "@angular/platform-browser-dynamic": "^19.1.7",
+    "@angular/platform-server": "^19.1.7",
+    "@angular/router": "^19.1.7",
+    "bootstrap": "^5.2.3",
+    "oidc-client": "^1.11.5",
+    "popper.js": "^1.16.0",
+    "run-script-os": "^1.1.6",
+    "rxjs": "~7.8.1",
+    "tslib": "^2.5.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^19.1.8",
+    "@angular/cli": "^19.1.8",
+    "@angular/compiler-cli": "^19.1.7",
+    "@types/node": "^18.16.3",
+    "typescript": "~5.5.4"
+  },
+  "overrides": {
+    "autoprefixer": "10.4.5",
+    "webpack": "5.81.0"
+  },
+  "optionalDependencies": {}
+}

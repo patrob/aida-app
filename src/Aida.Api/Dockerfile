@@ -1,11 +1,17 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
-USER $APP_UID
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
+EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
+
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash - \
+    && apt-get install -y \
+        nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /src
 COPY ["src/Aida.Api/Aida.Api.csproj", "src/Aida.Api/"]
 RUN dotnet restore "src/Aida.Api/Aida.Api.csproj"
