@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,11 +23,12 @@ else
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
 app.MapControllers();
+app.UseHttpsRedirection();
 
 app.MapFallbackToFile("index.html");
 app.UseStaticFiles();
+
 app.UseRouting();
 
 app.Run();

@@ -10,7 +10,9 @@
     "build": "ng build",
     "build:ssr": "ng run aida-app:server:dev",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "vitest",
+    "test:ci": "vitest run --reporter=default --reporter=junit --outputFile=reports/junit.xml",
+    "coverage": "vitest run --coverage"
   },
   "private": true,
   "dependencies": {
@@ -26,21 +28,24 @@
     "bootstrap": "^5.2.3",
     "oidc-client": "^1.11.5",
     "popper.js": "^1.16.0",
-    "run-script-os": "^1.1.6",
     "rxjs": "~7.8.1",
     "tslib": "^2.5.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@analogjs/platform": "^1.13.1",
+    "@analogjs/vite-plugin-angular": "^1.13.1",
+    "@analogjs/vitest-angular": "^1.13.1",
     "@angular-devkit/build-angular": "^19.1.8",
     "@angular/cli": "^19.1.8",
     "@angular/compiler-cli": "^19.1.7",
-    "@types/node": "^18.16.3",
-    "typescript": "~5.5.4"
-  },
-  "overrides": {
-    "autoprefixer": "10.4.5",
-    "webpack": "5.81.0"
-  },
-  "optionalDependencies": {}
+    "@nx/vite": "^20.4.6",
+    "@types/node": "^20.17.19",
+    "jsdom": "^22.0.0",
+    "run-script-os": "^1.1.6",
+    "typescript": "~5.5.4",
+    "vite": "^5.4.14",
+    "vite-tsconfig-paths": "^4.2.0",
+    "vitest": "^2.1.9"
+  }
 }
