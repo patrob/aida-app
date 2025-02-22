@@ -1,14 +1,15 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aida.Api.Health;
 
 [ApiController]
 [Route("[controller]")]
-public class HealthController : ControllerBase
+public class HealthController(IHealthService healthService) : ControllerBase
 {
     [HttpGet]
-    public void Get()
+    public async Task<bool> Get()
     {
-        // Healthy!
+        return await healthService.IsHealthy();
     }
 }

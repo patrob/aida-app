@@ -10,4 +10,8 @@
       <ProjectReference Include="..\..\src\Aida.Api\Aida.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoFixture" />
+    </ItemGroup>
+
 </Project>
