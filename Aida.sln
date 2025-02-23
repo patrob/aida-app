@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{52B5C7CB-82AB-4D73-9432-ACAB2DD74C69}"
 	ProjectSection(SolutionItems) = preProject
 		compose.yaml = compose.yaml
-		.github\workflows\deploy.yml = .github\workflows\deploy.yml
-		.github\workflows\pr-verify-backend.yml = .github\workflows\pr-verify-backend.yml
-		.github\workflows\pr-verify-frontend.yml = .github\workflows\pr-verify-frontend.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9D9A31EE-9B20-4D48-AB01-2FC371AD5544}"
@@ -26,6 +23,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aida.Api.Testing", "tests\Aida.Api.Testing\Aida.Api.Testing.csproj", "{D298DC52-08F7-41C3-95E5-6218A874B28D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{A805A062-B5C3-440C-BA6B-DD751E6E212D}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\deploy.yml = .github\workflows\deploy.yml
+		.github\workflows\pr-verify-backend.yml = .github\workflows\pr-verify-backend.yml
+		.github\workflows\pr-verify-frontend.yml = .github\workflows\pr-verify-frontend.yml
+	EndProjectSection
 EndProject
 
 Global

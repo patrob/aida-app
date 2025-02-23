@@ -1,4 +1,4 @@
-name: PR Verify
+name: Backend Verify
 
 on:
   pull_request:
