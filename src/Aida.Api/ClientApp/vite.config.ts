@@ -22,4 +22,10 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./src/test/setup.ts'],
+    testMatch: ['./src/**/*.spec.{ts,tsx}'],
+    globals: true,
+  },
 }));
