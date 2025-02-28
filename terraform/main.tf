@@ -1,5 +1,7 @@
 provider "azurerm" {
   features {}
+  # Use the environment variables set by the azure/login action
+  use_cli = false
 }
 
 terraform {
@@ -14,6 +16,7 @@ terraform {
     resource_group_name  = "aida-tfstate"
     storage_account_name = "aidatfstate"
     container_name       = "tfstate"
+    use_azuread_auth     = true
   }
 }
 
