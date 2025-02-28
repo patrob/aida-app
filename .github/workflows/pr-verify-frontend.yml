@@ -3,10 +3,14 @@ name: Frontend Verify
 on:
   pull_request:
     branches: ["main"]
-    paths:
-      - "src/Aida.Api/ClientApp/**"
     paths-ignore:
       - "**.md"
+      - "**.tf"
+      - "**.cs"
+      - "**.csproj"
+      - "**.sln"
+      - "tests/**"
+      - "src/Aida.Core/**"
       - ".github/workflows/pr-verify-backend.yml"
       - ".github/workflows/pr-verify-iac.yml"
 
