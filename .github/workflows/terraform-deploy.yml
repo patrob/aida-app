@@ -25,6 +25,7 @@ on:
 
 jobs:
   terraform-deploy:
+    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     defaults:
       run:
