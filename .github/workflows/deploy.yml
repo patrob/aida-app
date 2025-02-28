@@ -9,11 +9,6 @@ on:
       - ".github/workflows/pr-verify-frontend.yml"
       - ".github/workflows/pr-verify-iac.yml"
   workflow_dispatch:
-    inputs:
-      deploy_to_prod:
-        description: "Deploy to production"
-        type: boolean
-        default: false
 
 jobs:
   frontend-tests:
@@ -71,7 +66,7 @@ jobs:
         run: dotnet test --no-build --verbosity normal
         working-directory: tests/Aida.Api.IntegrationTests
 
-  deploy-dev:
+  deploy-dev-iac:
     needs: [frontend-tests, unit-tests, integration-tests]
     uses: ./.github/workflows/terraform-deploy.yml
     with:
@@ -85,7 +80,7 @@ jobs:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
   deploy-dev-app:
-    needs: [deploy-dev]
+    needs: [deploy-dev-iac]
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Application
@@ -93,9 +88,8 @@ jobs:
           echo "Deploying application to dev environment"
           # Add your actual deployment commands here
 
-  deploy-prod:
+  deploy-prod-iac:
     needs: [deploy-dev-app]
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_to_prod == 'true'
     uses: ./.github/workflows/terraform-deploy.yml
     with:
       environment: prod
@@ -108,7 +102,7 @@ jobs:
       AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
 
   deploy-prod-app:
-    needs: [deploy-prod]
+    needs: [deploy-prod-iac]
     runs-on: ubuntu-latest
     if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_to_prod == 'true'
     steps:
