@@ -5,6 +5,11 @@ on:
     branches: ["main"]
     paths-ignore:
       - "**.md"
+      - "**.js"
+      - "**.ts"
+      - "**.html"
+      - "**.scss"
+      - "**.css"
       - ".github/workflows/pr-verify-iac.yml"
       - ".github/workflows/pr-verify-frontend.yml"
 
