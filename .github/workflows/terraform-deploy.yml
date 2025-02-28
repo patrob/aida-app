@@ -26,6 +26,9 @@ on:
 jobs:
   terraform-deploy:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: terraform
     env:
       ARM_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
       ARM_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
@@ -53,13 +56,10 @@ jobs:
             -backend-config="storage_account_name=aidatfstate" \
             -backend-config="container_name=${{ inputs.container_name }}" \
             -backend-config="key=terraform.tfstate"
-        working-directory: terraform
 
       - name: Terraform Plan
         run: terraform plan -var="environment=${{ inputs.environment }}" -out=tfplan
-        working-directory: terraform
 
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
-        working-directory: terraform
 
