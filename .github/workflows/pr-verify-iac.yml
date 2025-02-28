@@ -24,7 +24,7 @@ jobs:
       ARM_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
     strategy:
       matrix:
-        environment: [dev] # add prod later
+        environment: [dev, prod]
     defaults:
       run:
         working-directory: terraform
