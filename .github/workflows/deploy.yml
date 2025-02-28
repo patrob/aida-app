@@ -2,28 +2,32 @@ name: Deploy
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+    paths-ignore:
+      - "**.md"
+      - ".github/workflows/pr-verify-backend.yml"
+      - ".github/workflows/pr-verify-frontend.yml"
+      - ".github/workflows/pr-verify-iac.yml"
+  workflow_dispatch:
 
 jobs:
   frontend-tests:
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js 20.x
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20.x
-        cache: 'npm'
-    - run: npm ci
-      working-directory: src/Aida.Api/ClientApp
-    - run: npm run build --if-present
-      working-directory: src/Aida.Api/ClientApp
-    - run: npm run test:ci
-      working-directory: src/Aida.Api/ClientApp
-      
-  unit-tests:
+    defaults:
+      run:
+        working-directory: src/Aida.Api/ClientApp
 
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - run: npm ci
+      - run: npm run build --if-present
+      - run: npm run test:ci
+
+  unit-tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +47,6 @@ jobs:
         working-directory: tests/Aida.Api.UnitTests
 
   integration-tests:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -62,5 +65,48 @@ jobs:
         run: dotnet test --no-build --verbosity normal
         working-directory: tests/Aida.Api.IntegrationTests
 
-      
-    # deploy when you figure out how you want to host it.
+  deploy-dev-iac:
+    needs: [frontend-tests, unit-tests, integration-tests]
+    uses: ./.github/workflows/terraform-deploy.yml
+    with:
+      environment: dev
+      container_name: dev-tfstate
+    secrets:
+      AZURE_AD_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      AZURE_AD_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_AD_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
+  deploy-dev-app:
+    needs: [deploy-dev-iac]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Application
+        run: |
+          echo "Deploying application to dev environment"
+          # Add your actual deployment commands here
+
+  deploy-prod-iac:
+    needs: [deploy-dev-app]
+    uses: ./.github/workflows/terraform-deploy.yml
+    with:
+      environment: prod
+      container_name: prod-tfstate
+    secrets:
+      AZURE_AD_CLIENT_ID: ${{ secrets.AZURE_AD_CLIENT_ID }}
+      AZURE_AD_CLIENT_SECRET: ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      AZURE_AD_TENANT_ID: ${{ secrets.AZURE_AD_TENANT_ID }}
+      AZURE_CREDENTIALS: ${{ secrets.AZURE_CREDENTIALS }}
+
+  deploy-prod-app:
+    needs: [deploy-prod-iac]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.deploy_to_prod == 'true'
+    steps:
+      - name: Deploy Application
+        run: |
+          echo "Deploying application to production environment"
+          # Add your actual deployment commands here
+
