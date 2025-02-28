@@ -3,10 +3,9 @@ name: PR Verify IaC
 on:
   pull_request:
     branches: ["main"]
-    paths-ignore:
-      - "**.md"
-      - ".github/workflows/pr-verify-backend.yml"
-      - ".github/workflows/pr-verify-frontend.yml"
+    paths:
+      - "terraform/**"
+      - ".github/workflows/pr-verify-iac.yml"
 
 permissions:
   contents: read
