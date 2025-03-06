@@ -1,0 +1,15 @@
+### Create a new subscription
+POST {{base_url}}/subscriptions
+Content-Type: application/json
+
+{
+  "customerId": "cus_example123",
+  "planId": "price_example123",
+  "paymentMethodId": "pm_example123"
+}
+
+### Get a subscription
+GET {{base_url}}/subscriptions/sub_example123
+
+### Cancel a subscription
+DELETE {{base_url}}/subscriptions/sub_example123 
