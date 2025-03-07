@@ -1,6 +1,6 @@
-
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
@@ -20,13 +20,15 @@ export const Hero = () => {
             AIDA turns your requirements into pull requests, streamlining your development process with AI-powered automation.
           </p>
           <div className="animate-fade-up opacity-0 [--animation-delay:400ms] flex flex-col sm:flex-row gap-4 min-[400px]:gap-6 mt-6">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-aida-magenta to-aida-fuchsia hover:opacity-90 transition-opacity text-white font-semibold rounded-full"
-            >
-              Get Started
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <Link to="/auth">
+              <Button
+                size="lg"
+                className="bg-gradient-to-r from-aida-magenta to-aida-fuchsia hover:opacity-90 transition-opacity text-white font-semibold rounded-full"
+              >
+                Get Started
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
             <Button
               variant="outline"
               size="lg"
