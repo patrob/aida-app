@@ -1,6 +1,6 @@
 import {render, screen} from "@testing-library/react";
 import { vi, describe, it, expect } from "vitest";
-import Index from "./Index";
+import Index from ".";
 import { MemoryRouter } from "react-router-dom";
 
 // Mock the Hero component to avoid router issues
