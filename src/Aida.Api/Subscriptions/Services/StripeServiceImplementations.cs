@@ -1,30 +1,34 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Aida.Api.Subscriptions.Models;
 using Stripe;
+using StripeSubscription = Stripe.Subscription;
+using AppSubscription = Aida.Api.Subscriptions.Models.Subscription;
 
 namespace Aida.Api.Subscriptions;
 
 public class StripeSubscriptionServiceImpl : IStripeSubscriptionService
 {
-    private readonly ISubscriptionService _subscriptionService;
+    private readonly Stripe.SubscriptionService _stripeSubscriptionService;
 
-    public StripeSubscriptionServiceImpl(ISubscriptionService subscriptionService)
+    public StripeSubscriptionServiceImpl()
     {
-        _subscriptionService = subscriptionService;
+        _stripeSubscriptionService = new Stripe.SubscriptionService();
     }
 
-    public Task<Subscription> CreateAsync(SubscriptionCreateOptions options)
+    public Task<StripeSubscription> CreateAsync(SubscriptionCreateOptions options)
     {
-        return _subscriptionService.CreateSubscriptionAsync(options);
+        return _stripeSubscriptionService.CreateAsync(options);
     }
 
-    public Task<Subscription> GetAsync(string subscriptionId)
+    public Task<StripeSubscription> GetAsync(string subscriptionId)
     {
-        return _subscriptionService.GetSubscriptionAsync(subscriptionId);
+        return _stripeSubscriptionService.GetAsync(subscriptionId);
     }
 
-    public Task<Subscription> CancelAsync(string subscriptionId, SubscriptionCancelOptions options)
+    public Task<StripeSubscription> CancelAsync(string subscriptionId, SubscriptionCancelOptions options)
     {
-        return _subscriptionService.CancelSubscriptionAsync(subscriptionId, options);
+        return _stripeSubscriptionService.CancelAsync(subscriptionId, options);
     }
 }
 

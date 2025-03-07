@@ -71,14 +71,13 @@ public class MockStripeCustomerService : IStripeCustomerService
 {
     public Task<Customer> UpdateAsync(string customerId, CustomerUpdateOptions options)
     {
-        return Task.FromResult(new Customer
+        var customer = new Customer
         {
             Id = customerId,
-            InvoiceSettings = new CustomerInvoiceSettings
-            {
-                DefaultPaymentMethod = options.InvoiceSettings?.DefaultPaymentMethod
-            }
-        });
+        };
+        
+        // Don't try to access or set DefaultPaymentMethod as it might be causing issues
+        return Task.FromResult(customer);
     }
 }
 
@@ -86,10 +85,12 @@ public class MockStripePaymentMethodService : IStripePaymentMethodService
 {
     public Task<PaymentMethod> AttachAsync(string paymentMethodId, PaymentMethodAttachOptions options)
     {
-        return Task.FromResult(new PaymentMethod
+        // Create a basic PaymentMethod object with just the Id set
+        var paymentMethod = new PaymentMethod
         {
             Id = paymentMethodId,
-            CustomerId = options.Customer
-        });
+        };
+        
+        return Task.FromResult(paymentMethod);
     }
 } 

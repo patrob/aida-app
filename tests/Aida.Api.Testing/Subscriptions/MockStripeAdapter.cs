@@ -8,7 +8,8 @@ namespace Aida.Api.Testing.Subscriptions;
 
 public class MockStripeAdapter : IStripeAdapter
 {
-    private readonly Dictionary<string, Subscription> _subscriptions = new();
+    // Static dictionary to maintain state across requests in integration tests
+    private static readonly Dictionary<string, Subscription> _subscriptions = new();
 
     public Task<Subscription> CreateSubscriptionAsync(string customerId, string planId, string paymentMethodId)
     {
@@ -21,7 +22,9 @@ public class MockStripeAdapter : IStripeAdapter
             CurrentPeriodEnd = DateTime.UtcNow.AddMonths(1)
         };
 
+        // Store in the static dictionary
         _subscriptions[subscription.Id] = subscription;
+        
         return Task.FromResult(subscription);
     }
 
@@ -32,6 +35,7 @@ public class MockStripeAdapter : IStripeAdapter
             return Task.FromResult<Subscription?>(subscription);
         }
 
+        // When subscription is not found, return null instead of throwing
         return Task.FromResult<Subscription?>(null);
     }
 
@@ -43,6 +47,7 @@ public class MockStripeAdapter : IStripeAdapter
             return Task.FromResult<Subscription?>(subscription);
         }
 
+        // When subscription is not found, return null instead of throwing
         return Task.FromResult<Subscription?>(null);
     }
 } 
