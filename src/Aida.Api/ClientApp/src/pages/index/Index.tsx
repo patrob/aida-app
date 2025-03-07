@@ -1,4 +1,3 @@
-
 import { Helmet } from "react-helmet";
 import { Hero } from "@/components/Hero";
 import { Features } from "@/components/Features";
@@ -23,4 +22,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Index; 

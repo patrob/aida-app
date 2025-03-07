@@ -24,8 +24,10 @@ const Chat = () => {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const dropAreaRef = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
@@ -34,11 +36,15 @@ const Chat = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const newFiles = Array.from(e.target.files);
-      if (selectedFiles.length + newFiles.length <= 5) {
-        setSelectedFiles([...selectedFiles, ...newFiles]);
-      } else {
-        alert("You can only upload up to 5 files at a time.");
-      }
+      addFiles(newFiles);
+    }
+  };
+
+  const addFiles = (newFiles: File[]) => {
+    if (selectedFiles.length + newFiles.length <= 5) {
+      setSelectedFiles([...selectedFiles, ...newFiles]);
+    } else {
+      alert("You can only upload up to 5 files at a time.");
     }
   };
 
@@ -48,6 +54,42 @@ const Chat = () => {
 
   const handleFileSelect = () => {
     fileInputRef.current?.click();
+  };
+
+  const handleDragEnter = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDraggingOver(true);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!isDraggingOver) {
+      setIsDraggingOver(true);
+    }
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Only set dragging state to false if we're leaving the main drop area
+    // and not just moving between child elements
+    if (dropAreaRef.current && !dropAreaRef.current.contains(e.relatedTarget as Node)) {
+      setIsDraggingOver(false);
+    }
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDraggingOver(false);
+
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      const droppedFiles = Array.from(e.dataTransfer.files);
+      addFiles(droppedFiles);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -85,7 +127,28 @@ const Chat = () => {
         <title>Chat - AIDA</title>
         <meta name="description" content="Chat with AIDA, your AI Developer Assistant" />
       </Helmet>
-      <div className="flex h-screen flex-col bg-gray-50 dark:bg-gray-900">
+      <div 
+        ref={dropAreaRef}
+        className={cn(
+          "flex h-screen flex-col bg-gray-50 dark:bg-gray-900 relative",
+          isDraggingOver && "bg-blue-50 dark:bg-blue-950"
+        )}
+        onDragEnter={handleDragEnter}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
+      >
+        {/* Drag overlay indicator */}
+        {isDraggingOver && (
+          <div className="absolute inset-0 bg-blue-500/10 pointer-events-none flex items-center justify-center border-2 border-dashed border-blue-500 z-10 rounded-lg m-4">
+            <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg text-center">
+              <Paperclip className="h-8 w-8 mx-auto mb-2 text-blue-500" />
+              <p className="text-lg font-medium">Drop files to attach</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Maximum 5 files allowed</p>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <header className="border-b border-gray-200 dark:border-gray-800 p-4">
           <h1 className="text-xl font-bold text-center">AIDA Chat</h1>
